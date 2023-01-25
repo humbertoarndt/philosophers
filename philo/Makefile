@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 11:00:48 by harndt            #+#    #+#              #
-#    Updated: 2023/01/23 11:20:27 by harndt           ###   ########.fr        #
+#    Updated: 2023/01/25 15:21:49 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS)
 			@echo "$(WHT)Compiling PHILOSOPHERS...$(EOC)"
-			@$(CC) $(OBJS) -o $@
+			@$(CC) $(CFLAGS) $(OBJS) -o $@
 			@echo "$(GREEN)PHILOSOPHERS build completed.$(EOC)"
 
 clean:
