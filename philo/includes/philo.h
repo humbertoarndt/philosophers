@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:59:11 by harndt            #+#    #+#             */
-/*   Updated: 2023/01/23 16:11:38 by harndt           ###   ########.fr       */
+/*   Updated: 2023/01/25 18:41:16 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@
  */
 typedef enum	e_state
 {
-	EAT,
-	SLEEP,
-	THINK
+	EAT = 0,
+	SLEEP = 1,
+	THINK = 2
 }	t_state;
 
 typedef struct	s_config t_config;
@@ -58,6 +58,8 @@ typedef struct	s_config
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	times_must_eat;
+	int	count_times_already_eaten;
+	long	start_time;
 	t_philo	*philo;
 }	t_config;
 
@@ -68,6 +70,9 @@ typedef struct	s_philo
 {
 	int			id;
 	t_config	*self;
+	int			times_eaten;
+	long		start_time_eat;
+	pthread_t	*thread;
 }	t_philo;
 
 #endif
