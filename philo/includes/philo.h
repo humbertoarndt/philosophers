@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:59:11 by harndt            #+#    #+#             */
-/*   Updated: 2023/01/25 18:41:16 by harndt           ###   ########.fr       */
+/*   Updated: 2023/01/30 17:10:15 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef enum	e_state
 	THINK = 2
 }	t_state;
 
-typedef struct	s_config t_config;
 typedef struct	s_philo t_philo;
+typedef struct	s_config t_config;
 
 /**
  * @brief ./philo configurations.
@@ -61,6 +61,10 @@ typedef struct	s_config
 	int	count_times_already_eaten;
 	long	start_time;
 	t_philo	*philo;
+	pthread_mutex_t	mtx_death;
+	pthread_mutex_t	mtx_gameover;
+	pthread_mutex_t	mtx_current_time;
+	pthread_mutex_t	mtx_count_philos_already_eaten;
 }	t_config;
 
 /**
@@ -73,6 +77,10 @@ typedef struct	s_philo
 	int			times_eaten;
 	long		start_time_eat;
 	pthread_t	*thread;
+	pthread_t	*thread_watchman;
+	pthread_mutex_t	mtx_fork_left;
+	pthread_mutex_t	mtx_fork_right;
+	pthread_mutex_t	mtx_times_eaten;
 }	t_philo;
 
 #endif

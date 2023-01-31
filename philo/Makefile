@@ -6,13 +6,13 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 11:00:48 by harndt            #+#    #+#              #
-#    Updated: 2023/01/25 15:21:49 by harndt           ###   ########.fr        #
+#    Updated: 2023/01/30 16:22:17 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
 CC			:=	cc
-CFLAGS		:=	-pthread #-Wall -Werror -Wextra 
+CFLAGS		:=	#-Wall -Werror -Wextra 
 HEADERS		:=	includes
 SRCS		:=	sources/philo.c	utils/ft_atoi.c	utils/ft_isdigit.c	\
 				utils/ft_isnum.c
@@ -31,7 +31,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS)
 			@echo "$(WHT)Compiling PHILOSOPHERS...$(EOC)"
-			@$(CC) $(CFLAGS) $(OBJS) -o $@
+			@$(CC) -pthread $(OBJS) -o $@
 			@echo "$(GREEN)PHILOSOPHERS build completed.$(EOC)"
 
 clean:

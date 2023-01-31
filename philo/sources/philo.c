@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:23:22 by harndt            #+#    #+#             */
-/*   Updated: 2023/01/25 18:56:44 by harndt           ###   ########.fr       */
+/*   Updated: 2023/01/31 13:21:11 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ static void	init_config(t_config *self, int argc, char **argv)
 	self->philo = malloc(sizeof(t_philo) * self->number_of_philosophers); //alocar memória para a quantidade de filosofes recebida
 	if (!self->philo)
 		return ;
+	pthread_mutex_init(&self->mtx_gameover, NULL);
+	pthread_mutex_init(&self->mtx_current_time, NULL);
+	pthread_mutex_init(&self->mtx_count_philos_already_eaten, NULL);
 	printf("[init_config]\tConfigurações encerradas\n\n");
 }
 
@@ -65,37 +68,85 @@ static void	init_philos(t_config *self)
 	printf("\n");
 }
 
-static void	*routine()
+static void	eat_sleep_think(t_philo *philo)
 {
-	printf("[create_threads]\tThread |%ld| criada\n", pthread_self());
-	sleep(5);
+	printf("Filósofo #%d Comeu, Dormiu, Pensou\n", philo->id);
+}
+
+static void *routine_watch(void *data)
+{
+	t_philo	*philo;
+	
+	philo = (t_philo *)data;
+	printf("Assistindo o filósofo #%d.\n", philo->id);
+}
+
+static void	*routine(void *data)
+{
+	printf("[pthread_self]\tThread |%ld| criada\n", pthread_self());
+	t_philo	*philo;
+	t_config	*self;
+	pthread_t	watchman;
+
+	philo = (t_philo *)data;
+	self = philo->self;
+	philo->thread_watchman = &watchman;
+	if (pthread_create(&watchman, NULL, &routine_watch, philo) != 0)
+		printf("Erro ao criar vigia.\n");
+	// while (1)
+	for (int i = 0; i < 5; i++)
+	{
+		if (self->times_must_eat && (philo->times_eaten == self->times_must_eat))
+		{
+			pthread_mutex_lock(&self->mtx_count_philos_already_eaten);
+			self->count_times_already_eaten++;
+			pthread_mutex_unlock(&self->mtx_count_philos_already_eaten);
+			break ;
+		}
+		eat_sleep_think(philo);
+	}
 }
 
 /**
- * @brief Create a threads object
+ * @brief Create philosophers as threads.
  * 
- * @param self 
+ * @param self A pointer to the config struct.
  */
 static void	create_threads(t_config *self)
 {
 	int	count;
 	t_philo	*philo;
 	
+	// checar se existe número de vezes pra comer argv[5]
+
 	count = 0;
-	printf("Criar |%d| threads\n", self->number_of_philosophers);
 	while (count < self->number_of_philosophers)
 	{
-		printf("|%d|\n", count);
 		philo = self->philo + count;
-		if (pthread_create(philo->thread, NULL, &routine, NULL) != 0)
+		if (pthread_create(philo->thread, NULL, &routine, philo) != 0)
 			printf ("Erro ao criar thread\n");
-		// printf("[create_threads]\tThread |%p| para o filosófo |%d| criada\n", philo->thread, count);
-		pthread_detach(*(philo->thread));
+		printf("[create_threads]\tThread |%p| para o filosófo |%d| criada\n", philo->thread, count);
+		// faz sentido usar o detach, pois não vou usar o resultado de routine, pra nada, acho
+		// pthread_detach(*(philo->thread));
 		count++;
 	}
 	printf("\n");
+	count = 0;
+	while (count < self->number_of_philosophers)
+	{
+		philo = self->philo + count;
+		if (pthread_join(*(philo->thread), NULL) != 0)
+			printf("Erro ao unir thread.\n");
+		printf("[join_threads]\tThread |%p| unida\n", philo->thread);
+		count++;
+	}
 }
 
+/**
+ * @brief Prints the program's configuration.
+ * 
+ * @param self A pointer to the config struct.
+ */
 static void	print_config(t_config *self)
 {
 	printf("Total of philosophers:\t|%d|\n", self->number_of_philosophers);
@@ -103,6 +154,42 @@ static void	print_config(t_config *self)
 	printf("Time to eat\t\t|%d|\n", self->time_to_eat);
 	printf("Time to sleep\t\t|%d|\n", self->time_to_sleep);
 	printf("Times to eat\t\t|%d|\n", self->times_must_eat);
+}
+
+/**
+ * @brief Checks the received arguments and returns if the program can run.
+ * 
+ * @param argc Total arguments received by command line.
+ * @param argv Argumentes received by command line.
+ * @return t_bool TRUE if the program can run, otherwise FALSE.
+ */
+static t_bool	check_args(int argc, char **argv)
+{
+	int		count;
+
+	if (argc != 5 && argc != 6) // checa se a quantidade adequada de parâmetros foi recebida
+	{
+		printf("Número de argumentos inválidos\n");
+		return (FALSE);
+	} 
+	count = 1;
+	while (count < argc)
+	{
+		if (!ft_isnum(argv[count++])) // checar se parâmetros recebidos contém apenas números
+		{
+			printf("Paramatros devem conter apenas numeros\n");
+			return (FALSE);
+		}
+	}
+	if (argv[1])
+	{
+		if (ft_atoi(argv[1]) <= 0) // checa se o número de filósofos é maior que zero
+		{
+			printf("Total de filosofos não pode ser zero\n");
+			return (FALSE);
+		}
+	}
+	return (TRUE);
 }
 
 // argc[0] -- (char)	program
@@ -113,32 +200,18 @@ static void	print_config(t_config *self)
 // argc[5] -- (int)		number_of_times_each_philosopher_must_eat (Opicional)
 int main(int argc, char *argv[])
 {
-	int	count;
-	t_bool	valid;
+
 	t_config	self;
-	
-	valid = TRUE;
-	if (argc != 5 && argc != 6) // checa se a quantidade adequada de parâmetros foi recebida
-		valid = FALSE;
-	count = 1;
-	while (count < argc)
-	{
-		if (!ft_isnum(argv[count++])) // checar se parâmetros recebidos contém apenas números
-			valid = FALSE;
-	}
-	if (argv[1])
-	{
-		if (ft_atoi(argv[1]) <= 0) // checa se o número de filósofos é maior que zero
-			valid = FALSE;
-	}
-	if (valid)
+
+	if (check_args(argc, argv))
 	{
 		init_config(&self, --argc, ++argv); //iniciar configurações
 		// print_config(&self);
 		init_philos(&self); // iniciar filosofos
 		create_threads(&self); // criar threads
+		pthread_mutex_lock(&self.mtx_gameover);
 	}
 	else
-		printf("ERROR\n");
+		return (1);
 	return (0);
 }
