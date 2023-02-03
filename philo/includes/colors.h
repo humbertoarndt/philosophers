@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:00:04 by harndt            #+#    #+#             */
-/*   Updated: 2023/01/23 11:17:35 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/03 16:23:04 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,96 +17,96 @@
 // EOF
 // =============================================================================
 
-# define eoc	"\033[0m"      // Text Reset
+# define EOC	"\033[0m"      // Text Reset
 
 // =============================================================================
 // REGULAR
 // =============================================================================
 
-# define black	"\033[0;30m"        // Black
-# define red	"\033[0;31m"          // Red
-# define green	"\033[0;32m"        // Green
-# define yellow	"\033[0;33m"       // Yellow
-# define blue	"\033[0;34m"         // Blue
-# define purple	"\033[0;35m"       // Purple
-# define cyan	"\033[0;36m"         // Cyan
-# define white	"\033[0;37m"        // White
+# define BLACK	"\033[0;30m"        // Black
+# define RED	"\033[0;31m"          // Red
+# define GREEN	"\033[0;32m"        // Green
+# define YELLOW	"\033[0;33m"       // Yellow
+# define BLUE	"\033[0;34m"         // Blue
+# define PURPLE	"\033[0;35m"       // Purple
+# define CYAN	"\033[0;36m"         // Cyan
+# define WHITE	"\033[0;37m"        // White
 
 // =============================================================================
 // BOLD
 // =============================================================================
 
-# define bblack		"\033[1;30m"       // Black
-# define bred		"\033[1;31m"         // Red
-# define bgreen		"\033[1;32m"       // Green
-# define byellow	"\033[1;33m"      // Yellow
-# define byblue		"\033[1;34m"        // Blue
-# define bpurple	"\033[1;35m"      // Purple
-# define bcyan		"\033[1;36m"        // Cyan
-# define bwhite		"\033[1;37m"       // White
+# define BBLACK		"\033[1;30m"       // Black
+# define BRED		"\033[1;31m"         // Red
+# define BGREEN		"\033[1;32m"       // Green
+# define BYELLOW	"\033[1;33m"      // Yellow
+# define BBLUE		"\033[1;34m"        // Blue
+# define BPURPLE	"\033[1;35m"      // Purple
+# define BCYAN		"\033[1;36m"        // Cyan
+# define BWHITE		"\033[1;37m"       // White
 
 // =============================================================================
 // UNDERLINE
 // =============================================================================
 
-# define ublack		"\033[4;30m"       // Black
-# define ured		"\033[4;31m"         // Red
-# define ugreen		"\033[4;32m"       // Green
-# define uyellow	"\033[4;33m"      // Yellow
-# define ublue		"\033[4;34m"        // Blue
-# define upruple	"\033[4;35m"      // Purple
-# define ucyan		"\033[4;36m"        // Cyan
-# define uwhite		"\033[4;37m"       // White
+# define UBLACK		"\033[4;30m"       // Black
+# define URED		"\033[4;31m"         // Red
+# define UGREEN		"\033[4;32m"       // Green
+# define UYELLOW	"\033[4;33m"      // Yellow
+# define UBLUE		"\033[4;34m"        // Blue
+# define UPURPLE	"\033[4;35m"      // Purple
+# define UCYAN		"\033[4;36m"        // Cyan
+# define UWHITE		"\033[4;37m"       // White
 
 // =============================================================================
 // BACKGROUND
 // =============================================================================
 
-# define bgblack	"\033[40m"       // Black
-# define bgred		"\033[41m"         // Red
-# define bggreen	"\033[42m"       // Green
-# define bgyellow	"\033[43m"      // Yellow
-# define bgblue		"\033[44m"        // Blue
-# define bgpurple	"\033[45m"      // Purple
-# define bgcyan		"\033[46m"        // Cyan
-# define bgwhite	"\033[47m"       // White
+# define BGBLACK	"\033[40m"       // Black
+# define BGRED		"\033[41m"         // Red
+# define BGGREEN	"\033[42m"       // Green
+# define BGYELLOW	"\033[43m"      // Yellow
+# define BGBLUE		"\033[44m"        // Blue
+# define BGPURPLE	"\033[45m"      // Purple
+# define BGCYAN		"\033[46m"        // Cyan
+# define BGWHITE	"\033[47m"       // White
 
 // =============================================================================
 // HIGH INTENSITY
 // =============================================================================
 
-# define iblack		"\033[0;90m"       // Black
-# define ired		"\033[0;91m"         // Red
-# define igreen		"\033[0;92m"       // Green
-# define iyellow	"\033[0;93m"      // Yellow
-# define iblue		"\033[0;94m"        // Blue
-# define ipurple	"\033[0;95m"      // Purple
-# define icyan		"\033[0;96m"        // Cyan
-# define iwhite		"\033[0;97m"       // White
+# define IBLACK		"\033[0;90m"       // Black
+# define IRED		"\033[0;91m"         // Red
+# define IGREEN		"\033[0;92m"       // Green
+# define IYELLOW	"\033[0;93m"      // Yellow
+# define IBLUE		"\033[0;94m"        // Blue
+# define IPURPLE	"\033[0;95m"      // Purple
+# define ICYAN		"\033[0;96m"        // Cyan
+# define IWHITE		"\033[0;97m"       // White
 
 // =============================================================================
 // BOLD HIGH INTENSITY
 // =============================================================================
 
-# define biblack	"\033[1;90m"      // Black
-# define bired		"\033[1;91m"        // Red
-# define bigreen	"\033[1;92m"      // Green
-# define biyellow	"\033[1;93m"     // Yellow
-# define biblue		"\033[1;94m"       // Blue
-# define bipurple	"\033[1;95m"     // Purple
-# define bicyan		"\033[1;96m"       // Cyan
-# define biwhite	"\033[1;97m"      // White
+# define BIBLACK	"\033[1;90m"      // Black
+# define BIRED		"\033[1;91m"        // Red
+# define BIGREEN	"\033[1;92m"      // Green
+# define BIYELLOW	"\033[1;93m"     // Yellow
+# define BIBLUE		"\033[1;94m"       // Blue
+# define BIPURPLE	"\033[1;95m"     // Purple
+# define BICYAN		"\033[1;96m"       // Cyan
+# define BIWHITE	"\033[1;97m"      // White
 
 // =============================================================================
 // HIGH INTENSITY BACKGROUNDS
 // =============================================================================
-# define oniblack	"\033[0;100m"   // Black
-# define onired		"\033[0;101m"     // Red
-# define onidegreen	"\033[0;102m"   // Green
-# define oniyellow	"\033[0;103m"  // Yellow
-# define oniblue	"\033[0;104m"    // Blue
-# define onipurple	"\033[0;105m"  // Purple
-# define oniecyan	"\033[0;106m"    // Cyan
-# define oniwhite	"\033[0;107m"   // White
+# define ONIBLACK	"\033[0;100m"   // Black
+# define ONIRED		"\033[0;101m"     // Red
+# define ONIGREEN	"\033[0;102m"   // Green
+# define ONIYELLOW	"\033[0;103m"  // Yellow
+# define ONIBLUE	"\033[0;104m"    // Blue
+# define ONIPURPLE	"\033[0;105m"  // Purple
+# define ONICYAN	"\033[0;106m"    // Cyan
+# define ONIWHITE	"\033[0;107m"   // White
 
 #endif
