@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:59:11 by harndt            #+#    #+#             */
-/*   Updated: 2023/01/30 17:10:15 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/03 12:33:03 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <string.h>	// memset
 # include <unistd.h>	// write, usleep
 # include <pthread.h>	// pthread functions
-# include <sys/time.h>	// gettimeofday
 
 // =============================================================================
 // PERSONAL LIBRARIES
@@ -40,9 +39,10 @@
  */
 typedef enum	e_state
 {
-	EAT = 0,
-	SLEEP = 1,
-	THINK = 2
+	EAT,
+	FORK,
+	SLEEP,
+	THINK
 }	t_state;
 
 typedef struct	s_philo t_philo;
@@ -53,16 +53,20 @@ typedef struct	s_config t_config;
  */
 typedef struct	s_config
 {
-	int	number_of_philosophers;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	times_must_eat;
+	int	number_of_philosophers;
 	int	count_times_already_eaten;
 	long	start_time;
+	t_bool	stop_print;
 	t_philo	*philo;
+	pthread_t	times_eaten;
 	pthread_mutex_t	mtx_death;
+	pthread_mutex_t	mtx_writer;
 	pthread_mutex_t	mtx_gameover;
+	pthread_mutex_t	mtx_stop_print;
 	pthread_mutex_t	mtx_current_time;
 	pthread_mutex_t	mtx_count_philos_already_eaten;
 }	t_config;
@@ -79,7 +83,7 @@ typedef struct	s_philo
 	pthread_t	*thread;
 	pthread_t	*thread_watchman;
 	pthread_mutex_t	mtx_fork_left;
-	pthread_mutex_t	mtx_fork_right;
+	pthread_mutex_t	*mtx_fork_right;
 	pthread_mutex_t	mtx_times_eaten;
 }	t_philo;
 
