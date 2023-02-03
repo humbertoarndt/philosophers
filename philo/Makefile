@@ -6,16 +6,17 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 11:00:48 by harndt            #+#    #+#              #
-#    Updated: 2023/02/02 11:28:10 by harndt           ###   ########.fr        #
+#    Updated: 2023/02/03 16:27:48 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
 CC			:=	cc
-CFLAGS		:=	#-Wall -Werror -Wextra 
+CFLAGS		:=	-pthread -Wall -Werror -Wextra 
 HEADERS		:=	includes
-SRCS		:=	sources/philo.c	utils/ft_atoi.c	utils/ft_isdigit.c	\
-				utils/ft_isnum.c	utils/ft_time.c	utils/ft_usleep.c
+SRCS		:=	sources/philo.c	sources/routine.c	sources/ft_check_args.c	\
+				utils/ft_atoi.c	utils/ft_isdigit.c	utils/ft_isnum.c		\
+				utils/ft_time.c	utils/ft_usleep.c
 
 OBJS		:=	$(SRCS:.c=.o)
 
