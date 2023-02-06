@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:23:22 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/06 11:44:28 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/06 11:48:46 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	*times_eaten(void *data)
 		}
 		pthread_mutex_unlock(&self->mtx_count_philos_already_eaten);
 	}
-	printf("%d philosophers have eate %d times(s)\n",
+	printf("%d philosophers have eaten %d times(s)\n",
 		self->number_of_philosophers, self->times_must_eat);
 	pthread_mutex_unlock(&self->mtx_gameover);
 	return (NULL);
