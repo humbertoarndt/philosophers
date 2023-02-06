@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 10:23:22 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/03 16:25:00 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/06 11:44:28 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ int	main(int argc, char *argv[])
 		create_threads(&self);
 		pthread_mutex_lock(&self.mtx_gameover);
 		ft_usleep(1000);
-		pthread_exit(NULL);
 	}
 	else
 		return (1);
