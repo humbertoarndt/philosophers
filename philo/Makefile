@@ -6,24 +6,28 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 11:00:48 by harndt            #+#    #+#              #
-#    Updated: 2023/02/03 16:27:48 by harndt           ###   ########.fr        #
+#    Updated: 2023/02/07 17:21:59 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
 CC			:=	cc
-CFLAGS		:=	-pthread -Wall -Werror -Wextra 
+CFLAGS		:=	-pthread -Wall -Werror -Wextra
 HEADERS		:=	includes
-SRCS		:=	sources/philo.c	sources/routine.c	sources/ft_check_args.c	\
-				utils/ft_atoi.c	utils/ft_isdigit.c	utils/ft_isnum.c		\
-				utils/ft_time.c	utils/ft_usleep.c
+SRCS		:=	./sources/death.c	./sources/exit.c	./sources/init.c	\
+				./sources/main.c	./sources/output.c	./sources/philo.c	\
+				./sources/strings.c	./sources/time.c
 
 OBJS		:=	$(SRCS:.c=.o)
 
-GREEN		:= \033[1;32m
-RED			:= \033[1;31m
-WHT			:= \033[1;37m
-EOC			:= \033[1;0m
+GREEN		:=	\033[1;32m
+RED			:=	\033[1;31m
+WHT			:=	\033[1;37m
+EOC			:=	\033[1;0m
+
+# ARGV		:=	1 800 200 200
+ARGV		:=	2 100 200 200
+VGFLAGS		:= --leak-check=full --show-leak-kinds=all
 
 all:		$(NAME)
 
@@ -47,4 +51,7 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+vg:			all
+			valgrind $(VGFLAGS) ./$(NAME) $(ARGV)
+
+.PHONY:		all clean fclean re vg
