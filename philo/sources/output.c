@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:32:55 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/08 13:57:08 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/08 14:15:35 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	write_status(t_philo *philo, t_bool obituary, t_status status)
 		print_status(philo, "is sleeping");
 	else if (status == THINKING)
 		print_status(philo, "is thinking");
-	else if (status == GOT_FORK_1 || GOT_FORK_2)
+	else if (status == GOT_FORK_1 || status == GOT_FORK_2)
 		print_status(philo, "has taken a fork");
 	pthread_mutex_unlock(&philo->self->write_lock);
 }
