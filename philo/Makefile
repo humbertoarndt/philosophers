@@ -6,7 +6,7 @@
 #    By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 11:00:48 by harndt            #+#    #+#              #
-#    Updated: 2023/02/07 17:21:59 by harndt           ###   ########.fr        #
+#    Updated: 2023/02/07 17:51:08 by harndt           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,7 @@ RED			:=	\033[1;31m
 WHT			:=	\033[1;37m
 EOC			:=	\033[1;0m
 
-# ARGV		:=	1 800 200 200
-ARGV		:=	2 100 200 200
+ARGV		:=	1 800 200 200
 VGFLAGS		:= --leak-check=full --show-leak-kinds=all
 
 all:		$(NAME)
