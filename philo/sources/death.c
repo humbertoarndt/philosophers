@@ -6,12 +6,19 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:44:52 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/07 17:34:23 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:56:44 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * @brief Set the simulation flag to stop. When the flag is set as TRUE the
+ * simulation ends.
+ * 
+ * @param self A pointer to the programs config structure.
+ * @param status A boolean to update the flag status.
+ */
 static void	set_simulation_stop(t_config *self, t_bool status)
 {
 	pthread_mutex_lock(&self->simulation_stop_lock);
@@ -19,6 +26,12 @@ static void	set_simulation_stop(t_config *self, t_bool status)
 	pthread_mutex_unlock(&self->simulation_stop_lock);
 }
 
+/**
+ * @brief Checks if the simulation is at and end.
+ * 
+ * @param self A pointer to the programs config structure.
+ * @return t_bool If the stop flag is TRUE reutns TRUE, else FALSE.
+ */
 t_bool	has_simulation_stopped(t_config *self)
 {
 	t_bool	flag;
@@ -31,6 +44,13 @@ t_bool	has_simulation_stopped(t_config *self)
 	return (flag);
 }
 
+/**
+ * @brief Checks the philosopher last meal's time and time_to_die to see if he
+ * should die.
+ * 
+ * @param philo A pointer to the philosopher structure.
+ * @return t_bool If the philosophers is killed returns TRUE, else FALSE.
+ */
 static t_bool	kill_philosopher(t_philo *philo)
 {
 	time_t	time;
@@ -46,6 +66,12 @@ static t_bool	kill_philosopher(t_philo *philo)
 	return (FALSE);
 }
 
+/**
+ * @brief Checks each philosopher to see if the ending conditidion are reached.
+ * 
+ * @param self A pointer to the programs config structure.
+ * @return t_bool On success returns TRUE, else FALSE.
+ */
 static t_bool	end_condition_reached(t_config *self)
 {
 	unsigned int	i;
@@ -72,6 +98,14 @@ static t_bool	end_condition_reached(t_config *self)
 	return (FALSE);
 }
 
+/**
+ * @brief The death philosopher routine. Cheks if a philosopher must be killed
+ * and if all philosophers ate enough. When those conditions are reached it
+ * stops the simulation.
+ * 
+ * @param data A pointer to the programs config structure.
+ * @return void* A NULL pointer.
+ */
 void	*death(void *data)
 {
 	t_config	*self;

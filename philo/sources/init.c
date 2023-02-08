@@ -6,12 +6,19 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 11:18:34 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/07 17:36:43 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/08 12:47:55 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * @brief Allocates memory and initiates the forks mutexes.
+ * 
+ * @param self A pointer to the programs config structure.
+ * @return pthread_mutex_t* On success returns a pointer to the fork mutex
+ * array, else NULL.
+ */
 static pthread_mutex_t	*init_forks(t_config *self)
 {
 	pthread_mutex_t	*forks;
@@ -30,6 +37,12 @@ static pthread_mutex_t	*init_forks(t_config *self)
 	return (forks);
 }
 
+/**
+ * @brief Assigns two forks ids to each philosopher. Philosophers with an even
+ * id get forks in a switched order.
+ * 
+ * @param philo A pointer to the philosophers array.
+ */
 static void	assign_forks(t_philo *philo)
 {
 	philo->fork[0] = philo->id;
@@ -41,6 +54,14 @@ static void	assign_forks(t_philo *philo)
 	}
 }
 
+/**
+ * @brief Allocates memory and initiates the structure where the the
+ * philosophers are stored.
+ * 
+ * @param self A pointer to the programs config structure.
+ * @return t_philo** On success returns a pointer to an array of philosophers,
+ * else NULL.
+ */
 static t_philo	**init_philos(t_config *self)
 {
 	unsigned int	i;
@@ -66,6 +87,12 @@ static t_philo	**init_philos(t_config *self)
 	return (philos);
 }
 
+/**
+ * @brief Initiates all mutexes used by the program.
+ * 
+ * @param self A pointer to the programs config structure.
+ * @return t_bool TRUE if the the mutexes are created, else FALSE.
+ */
 static t_bool	init_global_mtx(t_config *self)
 {
 	self->fork_locks = init_forks(self);
@@ -78,6 +105,15 @@ static t_bool	init_global_mtx(t_config *self)
 	return (TRUE);
 }
 
+/**
+ * @brief Allocates memory and initiates the structure where the program
+ * configurations are stored.
+ * 
+ * @param argc Total number of args received by command line.
+ * @param argv Args received by command line.
+ * @return t_config* A pointer to the configuration structure, or NULL if an
+ * error occured during initialization.
+ */
 t_config	*init_config(int argc, char *argv[])
 {
 	t_config	*self;
@@ -85,12 +121,12 @@ t_config	*init_config(int argc, char *argv[])
 	self = malloc(sizeof(t_config) * 1);
 	if (!self)
 		return (error_null(STR_ERR_MALLOC, NULL, 0));
-	self->nb_philos = integer_atoi(argv[0]);
-	self->time_to_die = integer_atoi(argv[1]);
-	self->time_to_eat = integer_atoi(argv[2]);
-	self->time_to_sleep = integer_atoi(argv[3]);
+	self->nb_philos = ft_atoi(argv[0]);
+	self->time_to_die = ft_atoi(argv[1]);
+	self->time_to_eat = ft_atoi(argv[2]);
+	self->time_to_sleep = ft_atoi(argv[3]);
 	if (argc == 5)
-		self->must_eat_count = integer_atoi(argv[4]);
+		self->must_eat_count = ft_atoi(argv[4]);
 	else
 		self->must_eat_count = -1;
 	self->philos = init_philos(self);

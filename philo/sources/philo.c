@@ -6,12 +6,18 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:59:16 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/07 17:41:11 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:48:31 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * @brief Locks the forks for a philosopher and let him eat, then put heim to
+ * sleep.
+ * 
+ * @param philo A pointer to the philosopher structure.
+ */
 static void	eat_sleep_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->self->fork_locks[philo->fork[0]]);
@@ -35,6 +41,15 @@ static void	eat_sleep_routine(t_philo *philo)
 	philo_sleep(philo->self, philo->self->time_to_sleep);
 }
 
+/**
+ * @brief Puts a philosopher to think. Calculates the time_to_think depending
+ * on how long was his last meal, and determines when the philosophers needs
+ * to eat again.
+ * 
+ * @param philo A pointer to the philosopher structure.
+ * @param silent When TRUE the the philosophers is busy not talking;, else
+ * the philosopher is thinking.
+ */
 static void	think_routine(t_philo *philo, t_bool silent)
 {
 	time_t	time_to_think;
@@ -55,6 +70,13 @@ static void	think_routine(t_philo *philo, t_bool silent)
 	philo_sleep(philo->self, time_to_think);
 }
 
+/**
+ * @brief Routine used when only one philosophers is created. Since only one
+ * fork exists, the philosophers must grab the forks and wait until his death.
+ * 
+ * @param philo A pointer to the philosopher structure.
+ * @return void* A NULL pointer.
+ */
 static void	*lone_philo_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->self->fork_locks[philo->fork[0]]);
@@ -65,6 +87,12 @@ static void	*lone_philo_routine(t_philo *philo)
 	return (NULL);
 }
 
+/**
+ * @brief The philosopher thread routine.
+ * 
+ * @param data A pointer to the philosopher structure.
+ * @return void* A NULL pointer.
+ */
 void	*philo(void *data)
 {
 	t_philo	*philo;

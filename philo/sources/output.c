@@ -6,18 +6,33 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:32:55 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/07 17:33:34 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/08 13:57:08 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * @brief Prints a plain text status message for a philospher as required by
+ * the subject.
+ * 
+ * @param philo A pointer to the pihlosopher.
+ * @param str The message to be printed.
+ */
 static void	print_status(t_philo *philo, char *str)
 {
 	printf("%ld %d %s\n", get_time_in_ms() - philo->self->start_time,
 		philo->id + 1, str);
 }
 
+/**
+ * @brief Prints the status of a philosopher as long as the simluation still
+ * active.
+ * 
+ * @param philo A pointer to the pihlosopher.
+ * @param obituary Status received by the death routine.
+ * @param status Current philosopher status.
+ */
 void	write_status(t_philo *philo, t_bool obituary, t_status status)
 {
 	pthread_mutex_lock(&philo->self->write_lock);
@@ -39,6 +54,12 @@ void	write_status(t_philo *philo, t_bool obituary, t_status status)
 	pthread_mutex_unlock(&philo->self->write_lock);
 }
 
+/**
+ * @brief Prints the outcome of the simulation when a number of times to eat
+ * is given by command line.
+ * 
+ * @param self A pointer to the programs config structure.
+ */
 void	write_outcome(t_config *self)
 {
 	unsigned int	i;
