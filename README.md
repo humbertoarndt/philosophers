@@ -50,6 +50,12 @@ Run the program withthe following arguments:
 
 If the arguments are valid, the status change log will be printed on the terminal until one of the stop conditions are meet.
 
+To count how many time a Philosophers does an action use:
+
+```sh
+./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philo_must_eat] | grep <id_and_status> | ec -l
+``` 
+
 ## References:
 * [POSIX Threads Programming](https://hpc-tutorials.llnl.gov/posix/)
 * [Threads, Mutexes and Concurrent Programming in C](https://www.codequoi.com/en/threads-mutexes-and-concurrent-programming-in-c/)
