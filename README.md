@@ -4,7 +4,7 @@ Philosophers is a project to teach the basics of threading processes, as how to 
 
 <div align="center">
 
-![Philosophers' exibition](https://raw.githubusercontent.com/humbertoarndt/philosophers/master/img/philosophers.gif)  
+![Philosophers' exibition](https://github.com/humbertoarndt/philosophers/blob/master/philo/img/philosophers.gif)  
 
 </div>
 
