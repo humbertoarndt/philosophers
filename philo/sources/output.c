@@ -6,7 +6,7 @@
 /*   By: harndt <harndt@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 13:32:55 by harndt            #+#    #+#             */
-/*   Updated: 2023/02/08 14:15:35 by harndt           ###   ########.fr       */
+/*   Updated: 2023/02/23 12:46:10 by harndt           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  */
 static void	print_status(t_philo *philo, char *str)
 {
-	printf("%ld %d %s\n", get_time_in_ms() - philo->self->start_time,
+	printf("%ld ms\t Philosopher |%d|\t %s\n", get_time_in_ms() - philo->self->start_time,
 		philo->id + 1, str);
 }
 
@@ -42,15 +42,15 @@ void	write_status(t_philo *philo, t_bool obituary, t_status status)
 		return ;
 	}
 	if (status == DIED)
-		print_status(philo, "died");
+		print_status(philo, "died 💀");
 	else if (status == EATING)
-		print_status(philo, "is eating");
+		print_status(philo, "is eating 🍝");
 	else if (status == SLEEPING)
-		print_status(philo, "is sleeping");
+		print_status(philo, "is sleeping 💤");
 	else if (status == THINKING)
-		print_status(philo, "is thinking");
+		print_status(philo, "is thinking 💭");
 	else if (status == GOT_FORK_1 || status == GOT_FORK_2)
-		print_status(philo, "has taken a fork");
+		print_status(philo, "has taken a fork 🍴");
 	pthread_mutex_unlock(&philo->self->write_lock);
 }
 
