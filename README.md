@@ -2,6 +2,12 @@
 
 Philosophers is a project to teach the basics of threading processes, as how to create threads and mutexes.
 
+<div align="center">
+
+![Philosophers' exibition](https://raw.githubusercontent.com/humbertoarndt/philosophers/master/img/philosophers.gif)  
+
+</div>
+
 ## Introduction
 
 In computer science, the dining philosophers problem is an example problem often used in concurrent algorithm design to illustrate synchronization issues and techniques for resolving them.
